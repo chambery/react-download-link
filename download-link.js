@@ -15,10 +15,10 @@ var DownloadLink = _react2.default.createClass({
 
 
   propTypes: {
-    filename: _react2.default.PropTypes.string,
+    filename: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.func]),
     label: _react2.default.PropTypes.string,
     style: _react2.default.PropTypes.object,
-    exportFile: _react2.default.PropTypes.function
+    exportFile: _react2.default.PropTypes.func
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -52,8 +52,17 @@ var DownloadLink = _react2.default.createClass({
       event.stopPropagation();
     }
 
+    function isFunction(functionToCheck) {
+      return functionToCheck;
+    }
+
     var fileType = event.target.innerText,
         text = this.props.exportFile(fileType);
+
+    var filename = this.props.filename;
+    if (this.props.filename && {}.toString.call(this.props.filename) === '[object Function]') {
+      filename = this.props.filename();
+    }
 
     if (text instanceof Promise) {
       text.then(function (result) {

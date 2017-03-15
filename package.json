@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/petermoresi/react-download-link#readme",
   "devDependencies": {
-    "babel-cli": "^6.1.2",
+    "babel-cli": "^6.24.0",
     "babel-core": "^6.1.2",
     "babel-preset-react": "^6.3.13"
   },
