@@ -3,10 +3,13 @@ import React from 'react';
 const DownloadLink = React.createClass({
 
   propTypes: {
-    filename: React.PropTypes.string,
+    filename: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.func
+    ]),
     label: React.PropTypes.string,
     style: React.PropTypes.object,
-    exportFile: React.PropTypes.function,
+    exportFile: React.PropTypes.func,
   },
 
   getDefaultProps() {
@@ -14,13 +17,13 @@ const DownloadLink = React.createClass({
       filename: 'file.txt',
       label: 'Save',
       style: { margin: '5px 5px 0px 0px', textDecoration: 'underline', color: 'blue', cursor: 'pointer' },
-      exportFile: () => {}
+      exportFile: () => { }
     }
   },
 
-  handleDownloadClick: function(event) {
+  handleDownloadClick: function (event) {
 
-    function magicDownload(text, fileName){
+    function magicDownload(text, fileName) {
       var blob = new Blob([text], {
         type: 'text/csv;charset=utf8;'
       });
@@ -38,24 +41,33 @@ const DownloadLink = React.createClass({
       event.stopPropagation();
     }
 
+    function isFunction(functionToCheck) {
+      return functionToCheck ;
+    }
+
     var fileType = event.target.innerText,
-    text = this.props.exportFile(fileType)
+      text = this.props.exportFile(fileType)
+
+    var filename = this.props.filename;
+    if (this.props.filename && {}.toString.call(this.props.filename) === '[object Function]') {
+      filename = this.props.filename();
+    }
 
     if (text instanceof Promise) {
       text.then(
-        result => magicDownload(result, this.props.filename)
+        result => magicDownload(result, filename)
       )
     } else {
-      magicDownload(text, this.props.filename)
+      magicDownload(text, filename)
     }
 
   },
 
-  render: function() {
+  render: function () {
     return (
-      <a style={ this.props.style }
+      <a style={this.props.style}
         href="javascript:void(0)"
-        onClick={ this.handleDownloadClick }>
+        onClick={this.handleDownloadClick}>
         {this.props.label}
       </a>
     );
