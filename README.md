@@ -19,7 +19,9 @@ Use:
 ```html
 <DownloadLink
 	filename="myfile.txt"
-	exportFile={() => "My cached data"}>Save to disk</DownloadLink>
+	exportFile={() => "My cached data"}>
+	    <FontAwesome name='download' />
+	</DownloadLink>
 ```
 
 Or with Promises:
