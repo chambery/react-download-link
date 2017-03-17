@@ -3,10 +3,7 @@ import React from 'react';
 const DownloadLink = React.createClass({
 
   propTypes: {
-    filename: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.func
-    ]),
+    filename: React.PropTypes.string,
     title: React.PropTypes.string,
     style: React.PropTypes.object,
     exportFile: React.PropTypes.func,
@@ -47,17 +44,12 @@ const DownloadLink = React.createClass({
     var fileType = event.target.innerText,
       text = this.props.exportFile(fileType)
 
-    var filename = this.props.filename;
-    if (this.props.filename && {}.toString.call(this.props.filename) === '[object Function]') {
-      filename = this.props.filename();
-    }
-
     if (text instanceof Promise) {
       text.then(
-        result => magicDownload(result, filename)
+        result => magicDownload(result, this.props.filename)
       )
     } else {
-      magicDownload(text, filename)
+      magicDownload(text, this.props.filename)
     }
 
   },
