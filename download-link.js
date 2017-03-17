@@ -16,7 +16,7 @@ var DownloadLink = _react2.default.createClass({
 
   propTypes: {
     filename: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.func]),
-    label: _react2.default.PropTypes.string,
+    title: _react2.default.PropTypes.string,
     style: _react2.default.PropTypes.object,
     exportFile: _react2.default.PropTypes.func
   },
@@ -24,7 +24,6 @@ var DownloadLink = _react2.default.createClass({
   getDefaultProps: function getDefaultProps() {
     return {
       filename: 'file.txt',
-      label: 'Save',
       style: { margin: '5px 5px 0px 0px', textDecoration: 'underline', color: 'blue', cursor: 'pointer' },
       exportFile: function exportFile() {}
     };
@@ -77,8 +76,9 @@ var DownloadLink = _react2.default.createClass({
       'a',
       { style: this.props.style,
         href: 'javascript:void(0)',
+        title: this.props.title,
         onClick: this.handleDownloadClick },
-      this.props.label
+      this.props.children
     );
   }
 });

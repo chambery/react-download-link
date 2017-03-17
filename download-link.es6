@@ -7,7 +7,7 @@ const DownloadLink = React.createClass({
       React.PropTypes.string,
       React.PropTypes.func
     ]),
-    label: React.PropTypes.string,
+    title: React.PropTypes.string,
     style: React.PropTypes.object,
     exportFile: React.PropTypes.func,
   },
@@ -15,7 +15,6 @@ const DownloadLink = React.createClass({
   getDefaultProps() {
     return {
       filename: 'file.txt',
-      label: 'Save',
       style: { margin: '5px 5px 0px 0px', textDecoration: 'underline', color: 'blue', cursor: 'pointer' },
       exportFile: () => { }
     }
@@ -67,8 +66,9 @@ const DownloadLink = React.createClass({
     return (
       <a style={this.props.style}
         href="javascript:void(0)"
+        title={this.props.title}
         onClick={this.handleDownloadClick}>
-        {this.props.label}
+        {this.props.children}
       </a>
     );
   }
