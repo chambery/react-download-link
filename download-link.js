@@ -15,7 +15,7 @@ var DownloadLink = _react2.default.createClass({
 
 
   propTypes: {
-    filename: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.func]),
+    filename: _react2.default.PropTypes.string,
     title: _react2.default.PropTypes.string,
     style: _react2.default.PropTypes.object,
     exportFile: _react2.default.PropTypes.func
@@ -31,6 +31,7 @@ var DownloadLink = _react2.default.createClass({
 
 
   handleDownloadClick: function handleDownloadClick(event) {
+    var _this = this;
 
     function magicDownload(text, fileName) {
       var blob = new Blob([text], {
@@ -57,17 +58,12 @@ var DownloadLink = _react2.default.createClass({
     var fileType = event.target.innerText,
         text = this.props.exportFile(fileType);
 
-    var filename = this.props.filename;
-    if (this.props.filename && {}.toString.call(this.props.filename) === '[object Function]') {
-      filename = this.props.filename();
-    }
-
     if (text instanceof Promise) {
       text.then(function (result) {
-        return magicDownload(result, filename);
+        return magicDownload(result, _this.props.filename);
       });
     } else {
-      magicDownload(text, filename);
+      magicDownload(text, this.props.filename);
     }
   },
 
