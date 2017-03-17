@@ -19,8 +19,7 @@ Use:
 ```html
 <DownloadLink
 	filename="myfile.txt"
-	label="Save to disk"
-	exportFile={() => "My cached data"} />
+	exportFile={() => "My cached data"}>Save to disk</DownloadLink>
 ```
 
 Or with Promises:
@@ -28,6 +27,5 @@ Or with Promises:
 ```html
 <DownloadLink
 	filename="myfile.txt"
-	label="Save to disk"
-	exportFile={() => Promise.resolve("My cached data")} />
+	exportFile={() => Promise.resolve("My cached data")}>Save to disk</DownloadLink>
 ```
